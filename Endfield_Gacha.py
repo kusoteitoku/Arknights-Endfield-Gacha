@@ -90,9 +90,27 @@ def recruitment():
             arsenal_tickets += 20
     return(pulls, arsenal_tickets, firstpulls, firsttickets)
 
-
-def weapon(pity):
-    return
+def weapon():
+    pulls = 0
+    rateup = 0
+    SixStarPity = 0
+    star_level = ["fourandfive-star", "six-star", "rate-up"]
+    while rateup < 1:
+        pulls += 1
+        SixStarPity += 1
+        probw = [0.96, 0.03, 0.01]
+        prob1 = [0.96, 0.03, 0.01]
+        if SixStarPity == 4:
+            prob1 = [0,0.75,0.25]
+            SixStarPity = 0
+        if pulls == 8:
+            prob1 = [0,0,1]
+        x_list = random.choices(star_level, weights=probw, k=9)
+        x_list.append(random.choices(star_level, weights=prob1, k=1)[0])
+        for item in x_list:
+            if item == 'rate-up':
+                rateup += 1
+    return pulls
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
@@ -101,13 +119,16 @@ if __name__ == '__main__':
     firstpulls = []
     firsttickets = []
     maxpity = 0
+    weapon_pulls = []
     i = 0
     while i < 10000:
         sim = recruitment()
+        wsim = weapon()
         pulls.append(sim[0])
         arsenal_tickets.append(sim[1])
         firstpulls.append(sim[2])
         firsttickets.append(sim[3])
+        weapon_pulls.append(wsim)
         if sim[2] == 120:
             maxpity += 1
         i += 1
@@ -116,7 +137,8 @@ if __name__ == '__main__':
     average_firstpulls = statistics.mean(firstpulls)
     average_firsttickets = statistics.mean(firsttickets)
     percent_120 = maxpity/10000 # Percentage to hit 120 pulls for first rate-up
-    print(average_pulls, average_arsenal_tickets, average_firstpulls, average_firsttickets, percent_120)
+    average_weapon_pulls = statistics.mean(weapon_pulls)
+    print(average_pulls, average_arsenal_tickets, average_firstpulls, average_firsttickets, percent_120, average_weapon_pulls)
 
     counts = np.bincount(pulls)
     x = np.arange(len(counts))
