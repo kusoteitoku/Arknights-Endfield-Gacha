@@ -74,11 +74,12 @@ free_gacha = function(sixpity, fivepity){
         prob[3] = prob[3] + (0.025*(SixStarPity-64))
         prob[4] = prob[4] + (0.025*(SixStarPity-64))
       }
-      else if (SixStarPity == 80){
+      if (SixStarPity == 80){
         prob = c(0, 0, 0.5, 0.5)
       }
-      else if (FiveStarPity >= 10){
-        prob = c(0, 1, 0, 0)
+      if (FiveStarPity >= 10){
+        prob[2] = prob[2] + prob[1]
+        prob[1] = 0
       }
       x = sample(star_level, size = 1, prob , replace = TRUE)
       if (x == "6-star(rate-up)"){
@@ -124,11 +125,12 @@ gacha_no_pity = function(pity){
         prob[3] = prob[3] + (0.025*(SixStarPity-64))
         prob[4] = prob[4] + (0.025*(SixStarPity-64))
       }
-      else if (SixStarPity == 80){
+      if (SixStarPity == 80){
         prob = c(0, 0, 0.5, 0.5)
       }
-      else if (FiveStarPity >= 10){
-        prob = c(0, 1, 0, 0)
+      if (FiveStarPity >= 10){
+        prob[2] = prob[2] + prob[1]
+        prob[1] = 0
       }
       if (pulls == 30){
         free = free_gacha(SixStarPity, FiveStarPity)
@@ -215,11 +217,12 @@ free_gacha = function(sixpity, fivepity){
         prob[3] = prob[3] + (0.025*(SixStarPity-64))
         prob[4] = prob[4] + (0.025*(SixStarPity-64))
       }
-      else if (SixStarPity == 80){
+      if (SixStarPity == 80){
         prob = c(0, 0, 0.5, 0.5)
       }
-      else if (FiveStarPity >= 10){
-        prob = c(0, 1, 0, 0)
+      if (FiveStarPity >= 10){
+        prob[2] = prob[2] + prob[1]
+        prob[1] = 0
       }
       x = sample(star_level, size = 1, prob , replace = TRUE)
       if (x == "6-star(rate-up)"){
@@ -263,11 +266,12 @@ gacha = function(pity){
         prob[3] = prob[3] + (0.025*(SixStarPity-64))
         prob[4] = prob[4] + (0.025*(SixStarPity-64))
       }
-      else if (SixStarPity == 80){
+      if (SixStarPity == 80){
         prob = c(0, 0, 0.5, 0.5)
       }
-      else if (FiveStarPity >= 10){
-        prob = c(0, 1, 0, 0)
+      if (FiveStarPity >= 10){
+        prob[2] = prob[2] + prob[1]
+        prob[1] = 0
       }
       if (pulls == 120){
         prob = c(0, 0, 0, 1)
